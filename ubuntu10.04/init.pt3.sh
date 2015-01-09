@@ -12,7 +12,6 @@ cat <<'eof' > Vagrantfile
 Vagrant.configure(2) do |config|
   config.vm.box = "lucid64_8nic"
   config.vm.synced_folder "shell/", "/vagrant" 
-  config.vm.synced_folder "shell/", "/vagrant" 
   config.vm.network "private_network", virtualbox__intnet: "intnet", :adapter => 1, auto_config: false
   config.vm.network "private_network", virtualbox__intnet: "intnet", :adapter => 2, auto_config: false
   config.vm.network "private_network", virtualbox__intnet: "intnet", :adapter => 3, auto_config: false
