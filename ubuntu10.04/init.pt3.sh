@@ -26,8 +26,8 @@ Vagrant.configure(2) do |config|
 end
 eof
 
-# startup VM with Vagrant
+# start/restart VM with Vagrant
+vagrant halt
 vagrant up
 echo done
-
 
