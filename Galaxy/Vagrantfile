@@ -5,7 +5,7 @@ Vagrant.configure(2) do |config|
     ansible localhost -m apt -a 'name=software-properties-common state=latest' ||
       apt-get -y install software-properties-common
     ansible localhost -m apt_repository -a "repo='ppa:ansible/ansible' " || 
-      apt-add-repository ppa:ansible/ansible
+      apt-add-repository -y ppa:ansible/ansible
     ansible localhost -m apt -a 'name=ansible state=latest update_cache=yes' ||
        { apt-get update ; apt-get -y install ansible ; }
     ansible localhost -m apt -a 'name=python2.7 state=present'
