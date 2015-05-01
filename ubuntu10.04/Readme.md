@@ -7,9 +7,11 @@ allows for bonding (configured in pt4).
 
 One runs the scripts in order:
 
-    bash -x init.pt1.sh
-    bash -x init.pt2.sh
-    bash -x init.pt3.sh
-    bash -x init.pt4.sh
+```
+  bash -x init.pt1.sh
+  bash -x init.pt2.sh
+  bash -x init.pt3.sh
+  bash -x init.pt4.sh
+```
     
 
