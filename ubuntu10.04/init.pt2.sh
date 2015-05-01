@@ -5,5 +5,6 @@ touch package.box &&
 rm -rf package.box &&
 vagrant package --base ${vmname} &&
 vagrant box add --force lucid64_8nic package.box  &&
+rm -rf package.box &&
 vagrant destroy -f default
 
