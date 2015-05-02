@@ -15,6 +15,11 @@ Vagrant.configure(2) do |config|
     ansible localhost -m apt_repository -a "repo='deb https://get.docker.com/ubuntu docker main' state=present"
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
     ansible localhost -m apt -a 'name=lxc-docker-1.6.0 state=present update_cache=yes'
+    ansible localhost -m copy -a "src=/vagrant/id_rsa dest=~/.ssh/git.id_rsa owner=vagrant group=vagrant mode=0600"
+    ansible localhost -m copy -a "src=/vagrant/id_rsa.pub dest=~/.ssh/git.id_rsa.pub owner=vagrant group=vagrant mode=0644"
+    ansible localhost -m copy -a "src=/vagrant/ssh-config dest=~/.ssh/config owner=vagrant group=vagrant mode=0644"
   HEREDOC
 end
+
+
 

@@ -1,0 +1,5 @@
+
+host github.com
+  User git
+  IdentityFile=/home/vagrant/.ssh/git.id_rsa
+
