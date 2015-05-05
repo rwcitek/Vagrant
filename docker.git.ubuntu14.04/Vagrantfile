@@ -20,6 +20,3 @@ Vagrant.configure(2) do |config|
     ansible localhost -m copy -a "src=/vagrant/ssh-config dest=/home/vagrant/.ssh/config owner=vagrant group=vagrant mode=0644"
   HEREDOC
 end
-
-
-
