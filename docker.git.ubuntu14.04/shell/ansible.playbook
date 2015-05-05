@@ -13,6 +13,15 @@
       - apt-transport-https
       - tree
       - pry
+      - python-setuptools
+
+  - name: install pip
+    easy_install:
+      name: pip
+
+  - name: install Docker-compose
+    pip:
+      name: docker-compose
 
   - name: setup apt-repo for Docker
     apt_repository:
