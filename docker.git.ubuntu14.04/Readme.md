@@ -1,7 +1,7 @@
-# Ubuntu 14.04 with ansible, git, git-flow, and Docker
+# Ubuntu 14.04 with ansible, git, git-flow, Docker, and Docker-compose
 
 The Vagrantfile starts an Ubuntu 14.04 box and then installs
-ansible, git, git-flow, and Docker.  Once ansible is installed,
+ansible, git, git-flow, Docker, and Docker-compose.  Once ansible is installed,
 it uses ansible to install and configure the other components.
 This makes the Vagrantfile idempotent and can be run multiple
 times with either of these commands:

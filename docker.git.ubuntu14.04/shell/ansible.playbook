@@ -1,0 +1,68 @@
+
+---
+- hosts: localhost
+  remote_user: vagrant
+  sudo: yes
+  tasks:
+
+  - name: install some packages needed for environment
+    apt:  name={{ item }} state=present
+    with_items:
+      - git
+      - git-flow
+      - apt-transport-https
+      - tree
+      - pry
+      - python-setuptools
+
+  - name: install colored
+    gem:
+      name: colored
+      user_install: yes
+      state: present
+
+  - name: install pip
+    easy_install:
+      name: pip
+
+  - name: install Docker-compose
+    pip:
+      name: docker-compose
+
+  - name: setup apt-repo for Docker
+    apt_repository:
+      repo: 'deb https://get.docker.com/ubuntu docker main'
+      state: present
+
+  - name: install Docker keys
+    shell: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
+
+  - name: install Docker 1.6.0
+    apt:
+      name:         lxc-docker-1.6.0
+      state:        present
+      update_cache: yes
+
+  - name: copy private key
+    copy:
+      src:   /vagrant/id_rsa
+      dest:  /home/vagrant/.ssh/git.id_rsa
+      owner: vagrant
+      group: vagrant
+      mode:  0600
+
+  - name: copy public key
+    copy:
+      src:   /vagrant/id_rsa.pub
+      dest:  /home/vagrant/.ssh/git.id_rsa.pub
+      owner: vagrant
+      group: vagrant
+      mode:  0644
+
+  - name: copy ssh config
+    copy:
+      src:   /vagrant/ssh-config
+      dest:  /home/vagrant/.ssh/config
+      owner: vagrant
+      group: vagrant
+      mode:  0644
