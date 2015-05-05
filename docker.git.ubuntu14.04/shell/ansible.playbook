@@ -5,6 +5,15 @@
   sudo: yes
   tasks:
 
+  - name: install some packages needed for environment
+    apt:  name={{ item }} state=present
+    with_items:
+      - git
+      - git-flow
+      - apt-transport-https
+      - tree
+      - pry
+
   - name: setup apt-repo for Docker
     apt_repository:
       repo: 'deb https://get.docker.com/ubuntu docker main'
