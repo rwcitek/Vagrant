@@ -15,6 +15,12 @@
       - pry
       - python-setuptools
 
+  - name: install colored
+    gem:
+      name: colored
+      user_install: yes
+      state: present
+
   - name: install pip
     easy_install:
       name: pip
