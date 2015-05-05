@@ -5,6 +5,14 @@
   sudo: yes
   tasks:
 
+  - name: copy private key
+    copy:
+      src:   /vagrant/id_rsa
+      dest:  /home/vagrant/.ssh/git.id_rsa
+      owner: vagrant
+      group: vagrant
+      mode:  0600
+
   - name: copy public key
     copy:
       src:   /vagrant/id_rsa.pub
@@ -33,3 +41,5 @@
 # copy -a "src=/vagrant/id_rsa dest=/home/vagrant/.ssh/git.id_rsa owner=vagrant group=vagrant mode=0600"
 # copy -a "src=/vagrant/id_rsa.pub dest=/home/vagrant/.ssh/git.id_rsa.pub owner=vagrant group=vagrant mode=0644"
 # copy -a "src=/vagrant/ssh-config dest=/home/vagrant/.ssh/config owner=vagrant group=vagrant mode=0644"
+
+
