@@ -5,6 +5,10 @@
   sudo: yes
   tasks:
 
+  - name: update the package cache
+    apt:
+      update_cache: yes
+
   - name: install some packages needed for environment
     apt:  name={{ item }} state=present
     with_items:
@@ -66,3 +70,25 @@
       owner: vagrant
       group: vagrant
       mode:  0644
+
+  - name: fetch source for ruby-install v0.5.0
+    get_url:
+      url: https://github.com/postmodern/ruby-install/archive/v0.5.0.tar.gz
+      dest: /home/vagrant/ruby-install.tar.gz
+      validate_certs: no
+
+  - name: unarchive source
+    unarchive:
+      src: /home/vagrant/ruby-install.tar.gz
+      dest: /home/vagrant/
+
+  - name: install the binary
+    command: make install
+    args:
+      chdir: /home/vagrant/ruby-install-0.5.0/
+
+  - name: install ruby v2.2.2
+    command: ruby-install --system ruby 2.2.2
+    args:
+      chdir: /home/vagrant/
+
