@@ -1,0 +1,118 @@
+# initial aliases and settings logged in shell's history
+{
+alias more='less -iX'
+alias dir='ls -la'
+alias cls=clear
+alias h=history
+alias screen='screen -e$'\''\026'\''v'
+alias vi=vim
+export HISTCONTROL=ignoredups:ignorespace
+export PS1='\u@\H: \w\n\$ '
+export PAGER='less -iX'
+}
+
+  {
+# start an ssh-agent at boot-up and load keys
+mkdir -p ~/.profile.d/
+cat <<'eof' > ~/.profile.d/00-ssh-agent.sh
+[ -z "$GDMSESSION" -a -z "$SSH_AGENT_PID" ] && tty -s && exec ssh-agent bash --login
+[ -n "$SSH_AGENT_PID" ] && tty -s && {
+  echo -e "\nAdding keys to ssh-agent ..."
+  ssh-add ~/.ssh/*_rsa
+  echo
+  ssh-add -l
+}
+eof
+}
+
+  {
+# pull aliases and functions from github
+cd ~
+wget 'https://raw.github.com/rwcitek/bash_customization/master/aliases/.bash_aliases'
+wget 'https://raw.github.com/rwcitek/bash_customization/master/functions/.bash_functions'
+}
+
+  {
+# generate initial ssh-keys
+[ -f ~/.ssh/id_rsa ] || ssh-keygen -t rsa -b 4096 -N '' -f ~/.ssh/id_rsa
+cat <<"eof" >> ~/.ssh/authorized_keys
+eof
+chmod u=rw,g=,o= ~/.ssh/authorized_keys
+cat ~/.ssh/authorized_keys
+}
+
+  {
+# include aliases and functions in ~/.bashrc
+cat <<eof >> ~/.bashrc
+
+[ -f ~/.bash_aliases ] && source ~/.bash_aliases
+[ -f ~/.bash_functions ] && source ~/.bash_functions
+
+eof
+
+# setup environment in ~/.bash_profile or ~/.profile
+profile=~/.profile
+[ -f ~/.bash_profile ] && profile=~/.bash_profile
+cat <<"eof" >> ${profile}
+export TMOUT=3600
+export IGNOREEOF=20
+export HISTSIZE=50000
+export HISTFILESIZE=$HISTSIZE
+export HISTTIMEFORMAT='%t%F %T%t'
+export HISTCONTROL=ignoredups:ignorespace
+export PS1='\u@\H: \w\n\$ '
+export VISUAL=vi
+
+# include other startup profiles
+if [ -d ~/.profile.d ]; then
+  for i in ~/.profile.d/*.sh; do
+    if [ -r $i ]; then
+      source $i
+    fi
+  done
+  unset i
+fi
+eof
+vi  ~/.bashrc
+vi ${profile}
+}
+
+
+
+### configuring root's environment
+
+# configure environment         
+{
+alias more='less -iX'
+alias dir='ls -la'
+alias cls=clear
+alias h=history
+alias screen='screen -e$'\''\026'\''v'
+alias vi=vim
+export HISTCONTROL=ignoredups:ignorespace
+export PS1='\u@\H: \w\n\$ '
+cd 
+}
+
+  {
+profile=~/.profile
+[ -f ${profile} ] || profile=~/.bash_profile
+cat <<"eof" >> ${profile}
+
+
+export PATH=$HOME/bin:$PATH
+
+# export TMOUT=3600
+# export IGNOREEOF=20
+export HISTSIZE=50000
+export HISTFILESIZE=$HISTSIZE
+export HISTTIMEFORMAT='%t%F %T%t'
+export HISTCONTROL=ignoredups:ignorespace
+# export PS1='\u@\H: \w\n\$ '
+export VISUAL=vi
+eof
+vi  ${profile}
+vi ~/.bashrc
+
+}
+

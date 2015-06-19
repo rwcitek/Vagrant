@@ -1,0 +1,26 @@
+
+
+# customize environment, including history and ssh-agent
+source /vagrant/bash.config.v01.txt
+
+# enable 
+exec sudo su -l vagrant
+
+# pull bash customizations
+ansible localhost -m git -a '
+  repo=ssh://git@github.com/rwcitek/bash_customization.git
+  dest=~/src/bash_customization
+  accept_hostkey=yes
+'
+
+for i in ~/src/bash_customization/aliases/*.bash_aliases ; do source $i ; done
+
+# git clone into ~/src/
+cd ~/src/
+git.clone git@github.com:rwcitek/docker.git
+git.clone git@github.com:carlobifulco/nant_anno.git
+
+
+sudo su -
+{ sleep 3 ; poweroff ; } & exit
+
