@@ -1,7 +1,0 @@
-
-host github.com
-  User git
-  IdentityFile=/home/vagrant/.ssh/git.id_rsa
-#  ProxyCommand  nc -x 10.246.98.159:5000 %h %p
-#  ProxyCommand  nc -x 127.0.0.1:5000 %h %p
-
