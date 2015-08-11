@@ -22,5 +22,32 @@ commands to copy the default public-private key pair into the ./shell/ folder:
   cp ~/.ssh/id_rsa.pub ./shell/id_rsa.pub 
 ```
 
+## Using tsocks for access to the outside world
 
+As vagrant, test
+
+```
+sudo tsocks apt-get update
+```
+
+As vagrant user, create mock, public SOCKS connection
+
+```
+ssh-keygen -t rsa -b 4096 -N '' -f ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys 
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o GSSAPIAuthentication=no -f -N -D '*:5000' localhost
+```
+
+As vagrant user, configure tsocks
+
+```
+sudo cp -a /etc/tsocks.conf /etc/tsocks.conf.orig &&
+sudo cp -a /etc/tsocks.conf.mock /etc/tsocks.conf
+```
+
+As vagrant user, test
+
+```
+sudo tsocks apt-get update
+```
 
