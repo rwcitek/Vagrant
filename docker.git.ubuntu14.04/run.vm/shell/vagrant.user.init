@@ -13,13 +13,19 @@ ansible localhost -m git -a '
   accept_hostkey=yes
 '
 
-for i in ~/src/bash_customization/aliases/*.bash_aliases ; do source $i ; done
+# clone docker
+ansible localhost -m git -a '
+  repo=ssh://git@github.com/rwcitek/docker.git
+  dest=~/src/docker
+  accept_hostkey=yes
+'
 
-# git clone into ~/src/
-cd ~/src/
-git.clone git@github.com:rwcitek/docker.git
-git.clone git@github.com:carlobifulco/nant_anno.git
-
+# clone nant_anno
+ansible localhost -m git -a '
+  repo=ssh://git@github.com/carlobifulco/nant_anno.git
+  dest=~/src/nant_anno
+  accept_hostkey=yes
+'
 
 sudo su -
 { sleep 3 ; poweroff ; } & exit
