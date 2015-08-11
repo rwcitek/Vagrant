@@ -37,7 +37,7 @@ cat ~/.ssh/authorized_keys
 
   {
 # include aliases and functions in ~/.bashrc
-cat <<eof >> ~/.bashrc
+cat <<'eof' >> ~/.bashrc
 
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 [ -f ~/.bash_functions ] && source ~/.bash_functions
