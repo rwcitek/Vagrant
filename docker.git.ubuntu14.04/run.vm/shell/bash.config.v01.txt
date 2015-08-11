@@ -42,6 +42,8 @@ cat <<eof >> ~/.bashrc
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 [ -f ~/.bash_functions ] && source ~/.bash_functions
 
+for i in ~/src/bash_customization/aliases/*.bash_aliases ; do source $i ; done
+
 eof
 
 # setup environment in ~/.bash_profile or ~/.profile
