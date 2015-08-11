@@ -18,6 +18,7 @@
       - tree
       - pry
       - python-setuptools
+      - tsocks
 
   - name: install colored
     gem:
@@ -52,6 +53,15 @@
       url: https://github.com/postmodern/ruby-install/archive/v0.5.0.tar.gz
       dest: /home/vagrant/ruby-install.tar.gz
       validate_certs: no
+
+  - name: copy mock tsocks setup
+    copy:
+      src:   /vagrant/tsocks.conf.mock
+      dest:  /etc/tsocks.conf.mock
+      owner: root
+      group: root
+      mode:  0644
+
 
 #  - name: unarchive source
 #    unarchive:
