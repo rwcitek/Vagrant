@@ -1,0 +1,15 @@
+
+# commands as vagrant
+su - vagrant
+source /vagrant/vagrant.user.init.pt1.bash-config
+exit
+
+su - vagrant
+source /vagrant/vagrant.user.init.pt2.git-config
+exit
+
+su - vagrant
+source /vagrant/vagrant.user.init.pt3.git-flow-config
+source /vagrant/vagrant.user.init.pt4.clean-up
+exit
+

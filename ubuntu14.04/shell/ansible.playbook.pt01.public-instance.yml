@@ -1,0 +1,22 @@
+
+# public instance
+# changes to services on a public instance or server
+#  e.g. ssh
+
+---
+- hosts: localhost
+  remote_user: root
+  sudo: no
+  tasks:
+
+  - name: ssh listen on port 8080
+    lineinfile:
+      dest:   /etc/ssh//sshd_config
+      state:  present
+      regexp: '^Port 22'
+      line:   'Port 8080'
+
+  - name: restart ssh to enable port change
+    service:
+      name:  ssh
+      state: restarted

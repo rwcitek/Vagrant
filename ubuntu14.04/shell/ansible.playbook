@@ -1,0 +1,26 @@
+
+---
+- hosts: localhost
+  remote_user: vagrant
+  sudo: yes
+  tasks:
+
+  - name: update the package cache
+    apt:
+      update_cache: yes
+
+  - name: install some packages needed for environment
+    apt:  name={{ item }} state=present
+    with_items:
+      - tsocks
+      - git
+      - git-flow
+
+  - name: copy mock tsocks setup
+    copy:
+      src:   /vagrant/tsocks.conf.mock
+      dest:  /etc/tsocks.conf.mock
+      owner: root
+      group: root
+      mode:  0644
+

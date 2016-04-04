@@ -1,0 +1,21 @@
+
+# Omics server layer 
+
+---
+- hosts: localhost
+  remote_user: root
+  sudo: no
+  tasks:
+
+  - name: create /data/ folder
+    file:
+      name:  /data/
+      state: directory
+      mode:  0777
+
+  - name: create /data/ folder pt2
+    file:
+      name:  /data/
+      state: directory
+      mode:  'o+t'
+

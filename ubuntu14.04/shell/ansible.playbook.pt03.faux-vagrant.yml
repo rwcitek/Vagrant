@@ -1,0 +1,38 @@
+
+# faux vagrant layer 
+# creates a Vagrant environment on a non-Vagrant-created instance
+# -- vagrant user, /vagrant folder, config files
+
+---
+- hosts: localhost
+  remote_user: root
+  sudo: no
+  tasks:
+
+  - name: create the Vagrant user
+    user:
+      name:             vagrant
+      generate_ssh_key: yes
+      ssh_key_bits:     4096
+      ssh_key_file:     .ssh/id_rsa
+      shell:            /bin/bash
+      groups:           sudo
+      append:           yes
+
+  - name: delete password for the Vagrant user
+    command: passwd -d vagrant
+
+  - name: adjust password expiration date for the Vagrant user
+    command: chage -d 0 vagrant
+
+  - name: create the /vagrant/ folder
+    file:
+      path: /vagrant/
+      state: directory
+      mode: 0755
+
+  - name: copy config files to the /vagrant/ folder
+    copy:
+      src:   confs/
+      dest:  /vagrant/
+      

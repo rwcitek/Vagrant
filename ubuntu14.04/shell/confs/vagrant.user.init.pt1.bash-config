@@ -1,0 +1,10 @@
+
+
+
+# customize environment, including history and ssh-agent
+mkdir ~/bin/
+source /vagrant/bash.config.v01.txt
+
+# set password
+passwd
+

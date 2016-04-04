@@ -1,0 +1,16 @@
+
+
+## find all git projects and initialize git flow 
+find ~/src/ -type d -name '.git' |
+rev |
+cut -d/ -f2- |
+rev |
+while read proj ; do
+  ( echo == $proj ; cd $proj ; git flow init -d )
+done
+
+## change branch in odds-n-ends project
+cd ~/src/odds-n-ends
+git.flow.feature.track vagrant-do
+cd vagrant/
+

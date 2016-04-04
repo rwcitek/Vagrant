@@ -1,0 +1,5 @@
+
+# cleanup
+sudo su -l -c id
+sudo rm -rf /vagrant/
+

@@ -1,0 +1,49 @@
+
+# Dev environment
+# creates a Development environment with ...
+#  Docker, git, and ancillary packages
+
+---
+- hosts: localhost
+  remote_user: root
+  sudo: no
+  tasks:
+
+  - name: update the package cache
+    apt:
+      update_cache: yes
+
+  - name: install some packages needed for environment
+    apt:  name={{ item }} state=present
+    with_items:
+      - git
+      - git-flow
+      - apt-transport-https
+      - tree
+      - python-setuptools
+      - tsocks
+      - zip
+      - unzip
+
+  - name: install pip
+    easy_install:
+      name: pip
+
+  - name: install Docker-compose
+    pip:
+      name: docker-compose
+
+  - name: setup apt-repo for Docker
+    apt_repository:
+      repo: 'deb https://get.docker.com/ubuntu docker main'
+      state: present
+
+  - name: install Docker keys
+    shell: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
+
+  - name: install Docker 1.6.0
+    apt:
+      name:         lxc-docker-1.6.0
+      state:        present
+      update_cache: yes
+

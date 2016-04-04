@@ -1,0 +1,49 @@
+
+git config --global user.email "robert.citek@gmail.com"
+git config --global user.name "Robert Citek"
+
+## personal GitHub repos
+git_personal="
+  bash_customization
+  docker
+  odds-n-ends
+"
+
+for repo in ${git_personal} ; do
+  echo == ${repo}
+  ansible localhost -m git -a '
+    repo=ssh://git@github.com/rwcitek/'${repo}'.git
+    dest=~/src/'${repo}'
+    accept_hostkey=yes
+  ' &
+done
+wait
+
+## PHS GitHub repos - read/write
+git_carlo_phs="
+  pdx_reporting
+  pdx_hotspots
+  pdx_anno
+  providence
+"
+
+for repo in ${git_carlo_phs} ; do
+  echo == ${repo}
+  ansible localhost -m git -a '
+    repo=ssh://git@github.com/carlobifulco/'${repo}'.git
+    dest=~/src/'${repo}'
+    accept_hostkey=yes
+  ' &
+done
+wait
+
+## install jq
+( cd ~/bin/ &&
+  [ ! -f jq-1.5 ] && {
+    wget 'https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64' -O jq-1.5
+    chmod +x jq-1.5 &&
+    ln -snf jq-1.5 jq
+  }
+)
+
+
